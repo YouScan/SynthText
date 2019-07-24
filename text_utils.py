@@ -80,7 +80,7 @@ class RenderFont(object):
         Also, outputs ground-truth bounding boxes and text string
     """
 
-    def __init__(self, data_dir='data'):
+    def __init__(self, data_dir='data', text_corpus_file='data/newsgroups/newsgroups.txt'):
         # distribution over the type of text:
         # whether to get a single word, paragraph or a line:
         self.p_text = {0.0 : 'WORD',
@@ -103,7 +103,7 @@ class RenderFont(object):
 
         # text-source : gets english text:
         self.text_source = TextSource(min_nchar=self.min_nchar,
-                                      fn=osp.join(data_dir,'newsgroup/newsgroup.txt'))
+                                      fn=text_corpus_file)
 
         # get font-state object:
         self.font_state = FontState(data_dir)
@@ -522,7 +522,7 @@ class TextSource(object):
                       'LINE':self.sample_line,
                       'PARA':self.sample_para}
 
-        with open(fn,'r') as f:
+        with open(fn,'r', encoding='utf-8') as f:
             self.txt = [l.strip() for l in f.readlines()]
 
         # distribution over line/words for LINE/PARA:

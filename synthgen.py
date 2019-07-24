@@ -216,7 +216,7 @@ def get_text_placement_mask(xyz,mask,plane,pad=2,viz=False):
     REGION : DICT output of TextRegions.get_regions
     PAD : number of pixels to pad the placement-mask by
     """
-    _,contour,hier = cv2.findContours(mask.copy().astype('uint8'),
+    contour,hier = cv2.findContours(mask.copy().astype('uint8'),
                                     mode=cv2.RETR_CCOMP,
                                     method=cv2.CHAIN_APPROX_SIMPLE)
     contour = [np.squeeze(c).astype('float') for c in contour]
@@ -365,8 +365,8 @@ def viz_textbb(fignum,text_im, bb_list,alpha=1.0):
 
 class RendererV3(object):
 
-    def __init__(self, data_dir, max_time=None):
-        self.text_renderer = tu.RenderFont(data_dir)
+    def __init__(self, data_dir, text_corpus_file, max_time=None):
+        self.text_renderer = tu.RenderFont(data_dir, text_corpus_file)
         self.colorizer = Colorize(data_dir)
         #self.colorizerV2 = colorV2.Colorize(data_dir)
 
@@ -630,7 +630,7 @@ class RendererV3(object):
         for i in range(ninstance):
             place_masks = copy.deepcopy(regions['place_mask'])
 
-            print (colorize(Color.CYAN, " ** instance # : %d"%i))
+#             print (colorize(Color.CYAN, " ** instance # : %d"%i))
 
             idict = {'img':[], 'charBB':None, 'wordBB':None, 'txt':None}
 
@@ -661,7 +661,7 @@ class RendererV3(object):
                                                              regions['homography'][ireg],
                                                              regions['homography_inv'][ireg])
                 except TimeoutException as msg:
-                    print (msg)
+#                     print (msg)
                     continue
                 except:
                     traceback.print_exc()

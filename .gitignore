@@ -88,3 +88,10 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+
+*.h5
+*.cp
+results/
+data/newsgroup/
+bg_img/
