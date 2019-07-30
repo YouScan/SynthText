@@ -24,4 +24,9 @@ The 8,000 background images used in the paper, along with their segmentation and
 
 Note: I do not own the copyright to these images.
 
+### Download corpus and font/color models
+`wget http://www.robots.ox.ac.uk/~ankush/data.tar.gz`
+
+`tar -xvf data.tar.gz`
+
 ### To generate images follow instructions in `generate_synth_data.ipynb`
